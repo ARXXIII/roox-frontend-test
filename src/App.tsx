@@ -1,8 +1,8 @@
 import { Option } from "./components/options"
 import { Route, Routes } from "react-router-dom"
 
-import Home from "./pages/Home"
-import User from "./pages/User"
+import HomePage from "./pages/Home"
+import UserPage from "./pages/User"
 
 function App() {
     return (
@@ -11,8 +11,8 @@ function App() {
                 <Option />
             </div>
             <Routes>
-                <Route path="/" Component={Home} />
-                <Route path="/user/:id" Component={User} />
+                <Route path="/" Component={HomePage} />
+                <Route path="/user/:id" Component={UserPage} />
             </Routes>
         </main>
     )
