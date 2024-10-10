@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 type UserCardProps = {
-    id: string
+    id: number
     fullName: string
     city: string
     company: string
