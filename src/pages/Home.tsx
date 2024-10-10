@@ -1,58 +1,19 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { fetchUsers } from "../store/users-slice"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../store/store"
+
 import { UserCard } from "../components/user-card"
 
-type Geo = {
-    lat: string
-    lng: string
-}
-
-type Address = {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
-    geo: Geo
-
-}
-type Company = {
-    name: string
-    catchPhrase: string
-    bs: string
-}
-
-interface User {
-    id: string
-    name: string
-    username: string
-    email: string
-    address: Address
-    phone: string
-    website: string
-    company: Company
-}
-
-const Home = () => {
-    const [users, setUsers] = useState<User[]>()
-
-    const fetchUsers = async () => {
-        try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/users')
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch users!')
-            }
-
-            const data = await response.json()
-
-            setUsers(data)
-        } catch (error) {
-            console.error('Failed to fetch user!', error)
-        }
-    }
+const HomePage = () => {
+    const dispatch: AppDispatch = useDispatch()
+    const users = useSelector((state: RootState) => state.users.users);
 
     useEffect(() => {
-        fetchUsers()
-    }, [])
+        if (users.length === 0) {
+            dispatch(fetchUsers())
+        }
+    }, [dispatch, users.length])
 
     return (
         <article className="space-y-3 px-16 py-5">
@@ -81,4 +42,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage
